@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ATLAS Architecture Graph",
+  "type": "object",
+  "required": ["nodes", "edges", "trust_boundaries", "zones", "stats"],
+  "properties": {
+    "nodes": {"type": "array", "items": {"type": "object", "required": ["id", "type", "value", "scope_state", "zone"],
+      "properties": {"id": {"type": "string"}, "type": {"enum": ["domain", "subdomain", "ip", "url", "api", "service", "database", "storage", "third_party", "auth_system", "application_server"]},
+        "value": {"type": "string"}, "scope_state": {"enum": ["authorized", "excluded", "discovered"]},
+        "zone": {"enum": ["public_internet", "application", "data", "external_third_party", "unknown"]}}}},
+    "edges": {"type": "array", "items": {"type": "object", "required": ["id", "source", "target", "relation", "evidence_id", "confidence", "crosses_trust_boundary"],
+      "properties": {"id": {"type": "string"}, "source": {"type": "string"}, "target": {"type": "string"},
+        "relation": {"type": "string"}, "evidence_id": {"type": "string", "description": "Mandatory evidence source"},
+        "confidence": {"enum": ["low", "medium", "high"]}, "crosses_trust_boundary": {"type": "boolean"}}}},
+    "trust_boundaries": {"type": "array", "items": {"type": "object", "properties": {"from_zone": {"type": "string"}, "to_zone": {"type": "string"}, "edge_id": {"type": "string"}, "evidence_id": {"type": "string"}}}},
+    "zones": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+    "stats": {"type": "object", "properties": {"nodes": {"type": "integer"}, "edges": {"type": "integer"}, "weakly_connected_components": {"type": "integer"}}}
+  }
+}

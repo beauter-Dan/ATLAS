@@ -1,0 +1,543 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-11-06T05:21:22.762797+00:00",
+  "disclaimer": "Findings are evidence-based. 'confirmed' status requires human-verified evidence; AI output is limited to inferences and hypotheses that cite evidence.",
+  "assessment": {
+    "id": "232f09e7-1dde-4d54-bafc-84d35d17a226",
+    "name": "Synthetic baseline assessment",
+    "status": "active",
+    "environment": "staging"
+  },
+  "target": {
+    "id": "4a9ab299-f442-4b1a-a0b5-3834a0afbee8",
+    "name": "Synthetic Shop Ltd",
+    "base_domain": "example.test",
+    "authorization_reference": "SYNTH-AUTH-001",
+    "authorized_by": "Synthetic CISO"
+  },
+  "scope_rules": [
+    {
+      "rule_type": "include",
+      "match_type": "domain",
+      "value": "example.test"
+    },
+    {
+      "rule_type": "include",
+      "match_type": "wildcard",
+      "value": "*.example.test"
+    },
+    {
+      "rule_type": "exclude",
+      "match_type": "domain",
+      "value": "admin.example.test"
+    }
+  ],
+  "assets": [
+    {
+      "id": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+      "asset_type": "domain",
+      "value": "example.test",
+      "scope_state": "authorized"
+    },
+    {
+      "id": "0bc50632-34d5-484b-bab2-5c1357d18496",
+      "asset_type": "ip",
+      "value": "203.0.113.10",
+      "scope_state": "discovered"
+    },
+    {
+      "id": "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
+      "asset_type": "subdomain",
+      "value": "cdn.example.test",
+      "scope_state": "authorized"
+    },
+    {
+      "id": "41f1e2b7-c4ba-48b8-9ee7-bb008c11ed17",
+      "asset_type": "subdomain",
+      "value": "api.example.test",
+      "scope_state": "authorized"
+    },
+    {
+      "id": "49b255b8-23d4-4f83-aa2b-d6150d929d44",
+      "asset_type": "subdomain",
+      "value": "admin.example.test",
+      "scope_state": "excluded"
+    },
+    {
+      "id": "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9",
+      "asset_type": "third_party",
+      "value": "cdn.thirdparty.test",
+      "scope_state": "discovered"
+    },
+    {
+      "id": "a34a04ea-7afe-4cec-a359-8ed31d224cbe",
+      "asset_type": "application_server",
+      "value": "synthetic-shop-app",
+      "scope_state": "discovered"
+    }
+  ],
+  "technologies": [
+    {
+      "name": "nginx",
+      "version": "1.18.0",
+      "category": "web_server",
+      "confidence": "high",
+      "evidence_id": "87bf779a-2cb5-4438-8704-0edb44b405c6"
+    },
+    {
+      "name": "Express",
+      "version": null,
+      "category": "framework",
+      "confidence": "high",
+      "evidence_id": "87bf779a-2cb5-4438-8704-0edb44b405c6"
+    },
+    {
+      "name": "Python",
+      "version": null,
+      "category": "language",
+      "confidence": "high",
+      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+    },
+    {
+      "name": "FastAPI",
+      "version": null,
+      "category": "framework",
+      "confidence": "high",
+      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+    }
+  ],
+  "observation_summary": {
+    "by_kind": {
+      "direct_observation": 12
+    },
+    "by_category": {
+      "domain_registration": 1,
+      "dns_records": 1,
+      "certificate_transparency": 1,
+      "tls_configuration": 1,
+      "http_response_metadata": 1,
+      "http_security_headers": 1,
+      "browser_resources": 1,
+      "technology_fingerprint": 1,
+      "api_documentation": 1,
+      "application_source_analysis": 1,
+      "database_schema_analysis": 1,
+      "experiment_result": 1
+    },
+    "unverified": 12
+  },
+  "architecture": {
+    "nodes": [
+      {
+        "id": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+        "type": "domain",
+        "value": "example.test",
+        "scope_state": "authorized",
+        "zone": "public_internet"
+      },
+      {
+        "id": "0bc50632-34d5-484b-bab2-5c1357d18496",
+        "type": "ip",
+        "value": "203.0.113.10",
+        "scope_state": "discovered",
+        "zone": "public_internet"
+      },
+      {
+        "id": "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
+        "type": "subdomain",
+        "value": "cdn.example.test",
+        "scope_state": "authorized",
+        "zone": "public_internet"
+      },
+      {
+        "id": "41f1e2b7-c4ba-48b8-9ee7-bb008c11ed17",
+        "type": "subdomain",
+        "value": "api.example.test",
+        "scope_state": "authorized",
+        "zone": "public_internet"
+      },
+      {
+        "id": "49b255b8-23d4-4f83-aa2b-d6150d929d44",
+        "type": "subdomain",
+        "value": "admin.example.test",
+        "scope_state": "excluded",
+        "zone": "public_internet"
+      },
+      {
+        "id": "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9",
+        "type": "third_party",
+        "value": "cdn.thirdparty.test",
+        "scope_state": "discovered",
+        "zone": "external_third_party"
+      },
+      {
+        "id": "a34a04ea-7afe-4cec-a359-8ed31d224cbe",
+        "type": "application_server",
+        "value": "synthetic-shop-app",
+        "scope_state": "discovered",
+        "zone": "application"
+      }
+    ],
+    "edges": [
+      {
+        "id": "4ac0f6b1-3de6-4090-beb3-fd73cbca261e",
+        "source": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+        "target": "0bc50632-34d5-484b-bab2-5c1357d18496",
+        "relation": "resolves_to",
+        "evidence_id": "4fb2c2ec-e77b-4ab0-9f20-126f9da4aec9",
+        "confidence": "high",
+        "crosses_trust_boundary": false
+      },
+      {
+        "id": "a126332d-108c-41d0-bbe0-7f19ff0a09eb",
+        "source": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+        "target": "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
+        "relation": "aliases",
+        "evidence_id": "4fb2c2ec-e77b-4ab0-9f20-126f9da4aec9",
+        "confidence": "high",
+        "crosses_trust_boundary": false
+      },
+      {
+        "id": "4ca03a6f-5e37-4644-b044-a7497e5d3356",
+        "source": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+        "target": "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9",
+        "relation": "references",
+        "evidence_id": "61296a29-56de-4ee6-a78d-8efa4ef6f753",
+        "confidence": "high",
+        "crosses_trust_boundary": true
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "from_zone": "public_internet",
+        "to_zone": "external_third_party",
+        "edge_id": "4ca03a6f-5e37-4644-b044-a7497e5d3356",
+        "evidence_id": "61296a29-56de-4ee6-a78d-8efa4ef6f753"
+      }
+    ],
+    "zones": {
+      "public_internet": [
+        "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+        "0bc50632-34d5-484b-bab2-5c1357d18496",
+        "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
+        "41f1e2b7-c4ba-48b8-9ee7-bb008c11ed17",
+        "49b255b8-23d4-4f83-aa2b-d6150d929d44"
+      ],
+      "external_third_party": [
+        "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9"
+      ],
+      "application": [
+        "a34a04ea-7afe-4cec-a359-8ed31d224cbe"
+      ]
+    },
+    "stats": {
+      "nodes": 7,
+      "edges": 3,
+      "weakly_connected_components": 4
+    }
+  },
+  "application_routes": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "auth_required": null,
+      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+    },
+    {
+      "method": "GET",
+      "path": "/orders/{order_id}",
+      "auth_required": true,
+      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+    },
+    {
+      "method": "POST",
+      "path": "/orders/{order_id}/cancel",
+      "auth_required": null,
+      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+    },
+    {
+      "method": "POST",
+      "path": "/checkout",
+      "auth_required": true,
+      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{user_id}",
+      "auth_required": null,
+      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+    }
+  ],
+  "api_endpoints": [
+    {
+      "method": "GET",
+      "path": "/orders/{order_id}",
+      "documented": true,
+      "evidence_id": "30adf8cf-15da-45ab-b298-4e7829821050"
+    },
+    {
+      "method": "POST",
+      "path": "/checkout",
+      "documented": true,
+      "evidence_id": "30adf8cf-15da-45ab-b298-4e7829821050"
+    }
+  ],
+  "databases": [
+    {
+      "name": "shop",
+      "technology": "postgresql",
+      "technology_confidence": "high",
+      "tables": [
+        {
+          "name": "users",
+          "sensitivity": "restricted"
+        },
+        {
+          "name": "orders",
+          "sensitivity": "internal"
+        },
+        {
+          "name": "order_items",
+          "sensitivity": "internal"
+        }
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "401284ff-6628-41a0-8f88-ce208c386ef3",
+      "category": "application_state_transitions",
+      "title": "Workflow route /orders/{order_id} may allow out-of-order state transitions",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "State machine definition",
+        "Server-side transition checks"
+      ]
+    },
+    {
+      "id": "44bc74e7-7001-476f-a686-33b62e44369a",
+      "category": "authentication_authorization_boundary",
+      "title": "State-changing route POST /orders/{order_id}/cancel may lack an authentication check",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "Middleware/gateway configuration",
+        "Runtime behaviour in an authorized test environment"
+      ]
+    },
+    {
+      "id": "43b521b3-87f5-40fc-b0d9-e029cdecf69b",
+      "category": "data_ownership",
+      "title": "Object access on POST /orders/{order_id}/cancel may not verify record ownership",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "Handler source",
+        "Authorization policy"
+      ]
+    },
+    {
+      "id": "c90177e5-ac31-468f-ab13-2738941b0131",
+      "category": "application_state_transitions",
+      "title": "Workflow route /orders/{order_id}/cancel may allow out-of-order state transitions",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "State machine definition",
+        "Server-side transition checks"
+      ]
+    },
+    {
+      "id": "983a664b-4f7e-46bd-8fa2-57329a0e8211",
+      "category": "application_state_transitions",
+      "title": "Workflow route /checkout may allow out-of-order state transitions",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "State machine definition",
+        "Server-side transition checks"
+      ]
+    },
+    {
+      "id": "efc81160-f995-4909-b342-e7bc454e5880",
+      "category": "authentication_authorization_boundary",
+      "title": "State-changing route DELETE /users/{user_id} may lack an authentication check",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "Middleware/gateway configuration",
+        "Runtime behaviour in an authorized test environment"
+      ]
+    },
+    {
+      "id": "296c9e77-25e7-4896-b33f-c09c348e6572",
+      "category": "data_ownership",
+      "title": "Object access on DELETE /users/{user_id} may not verify record ownership",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "Handler source",
+        "Authorization policy"
+      ]
+    },
+    {
+      "id": "1ec2b6b7-29ee-47ac-9a6d-d597778d14ad",
+      "category": "data_ownership",
+      "title": "Table orders is owner-scoped via user_id; queries may not always filter by owner",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "c5f8210f-febe-4911-895d-4c1d853637a6"
+      ],
+      "missing_evidence": [
+        "Data-access layer code",
+        "Row-level security policies"
+      ]
+    },
+    {
+      "id": "1e2e134d-eda8-4138-aa97-befff4682bab",
+      "category": "third_party_dependencies",
+      "title": "nginx 1.18.0 exposed in responses may have published advisories",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "87bf779a-2cb5-4438-8704-0edb44b405c6"
+      ],
+      "missing_evidence": [
+        "Actual installed version",
+        "Vendor advisory mapping"
+      ]
+    },
+    {
+      "id": "c5fb7249-7b34-4c79-b951-51997dbde1c5",
+      "category": "third_party_dependencies",
+      "title": "Third-party scripts without integrity checks: cdn.thirdparty.test",
+      "confidence": "medium",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "61296a29-56de-4ee6-a78d-8efa4ef6f753"
+      ],
+      "missing_evidence": [
+        "Which pages load these scripts",
+        "Data exposed to those pages"
+      ]
+    },
+    {
+      "id": "609409b1-c1ab-4e6e-a23e-8b8d98e6dde1",
+      "category": "protocol_interpretation_differences",
+      "title": "Proxy layer and origin both visible; they may parse requests differently",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "406044a6-3ad2-45b8-a6bf-a1f5aa205708"
+      ],
+      "missing_evidence": [
+        "Proxy and origin configuration",
+        "Request normalisation settings"
+      ]
+    },
+    {
+      "id": "b9dd5d6d-18ff-45c6-b7a7-0a6850c99512",
+      "category": "architectural_inconsistencies",
+      "title": "3 source routes do not appear in the public API description",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "30adf8cf-15da-45ab-b298-4e7829821050",
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "Whether routes are internal-only",
+        "Gateway exposure rules"
+      ]
+    },
+    {
+      "id": "5bd9a5d2-d5cb-43b3-826d-c68910ced269",
+      "category": "api_trust_assumptions",
+      "title": "Documented POST /checkout declares no security requirement",
+      "confidence": "low",
+      "status": "open",
+      "supporting_evidence_ids": [
+        "30adf8cf-15da-45ab-b298-4e7829821050"
+      ],
+      "missing_evidence": [
+        "Gateway/app enforcement"
+      ]
+    },
+    {
+      "id": "9f6db4b4-89b2-4e9e-bbe8-758aaefbcf32",
+      "category": "data_ownership",
+      "title": "Object access on GET /orders/{order_id} may not verify record ownership",
+      "confidence": "low",
+      "status": "experiment_planned",
+      "supporting_evidence_ids": [
+        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      ],
+      "missing_evidence": [
+        "Handler source",
+        "Authorization policy"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "42142d05-ccb9-4949-9574-3900bd75be84",
+      "experiment_type": "header_review",
+      "status": "completed",
+      "approved_by": "d26c1dfe-1c05-4e46-b77e-9d3d1a5cc2eb",
+      "result": {
+        "requests": 1,
+        "present": {
+          "x-frame-options": "DENY"
+        },
+        "absent": [
+          "content-security-policy"
+        ],
+        "evidence_id": "52f01a13-9f66-4d87-897e-3cc536e56c66"
+      }
+    }
+  ],
+  "findings": {
+    "confirmed_vulnerability": [],
+    "potential_vulnerability": [
+      {
+        "id": "762200ec-c96d-45c0-bc68-6122ab015bc3",
+        "title": "CSP header not observed",
+        "classification": "potential_vulnerability",
+        "severity": "low",
+        "evidence_ids": [
+          "52f01a13-9f66-4d87-897e-3cc536e56c66"
+        ],
+        "rationale": "",
+        "hypothesis_id": "9f6db4b4-89b2-4e9e-bbe8-758aaefbcf32"
+      }
+    ],
+    "informational_observation": [],
+    "false_positive": [],
+    "insufficient_evidence": []
+  },
+  "unknowns": [],
+  "evidence_count": 12
+}

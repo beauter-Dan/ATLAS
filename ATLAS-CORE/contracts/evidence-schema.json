@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ATLAS Evidence / Observation",
+  "type": "object",
+  "required": ["id", "assessment_id", "category", "description", "collection_source", "reference", "timestamp", "confidence", "verification_status"],
+  "properties": {
+    "id": {"type": "string", "format": "uuid", "description": "Unique evidence ID"},
+    "assessment_id": {"type": "string", "format": "uuid"},
+    "asset_id": {"type": ["string", "null"], "format": "uuid", "description": "Related asset"},
+    "category": {"type": "string", "description": "Observation category, e.g. dns_records, tls_configuration"},
+    "description": {"type": "string"},
+    "collection_source": {"type": "string", "description": "e.g. dns, http_probe, source_code, experiment:<id>"},
+    "reference": {"type": "string", "description": "Evidence reference (URL, file, query)"},
+    "content_hash": {"type": "string", "description": "sha256 of canonical payload"},
+    "payload": {"type": "object"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "confidence": {"enum": ["low", "medium", "high"]},
+    "verification_status": {"enum": ["unverified", "verified", "disputed"]}
+  },
+  "$defs": {
+    "observation_kind": {"enum": ["direct_observation", "inference", "hypothesis", "confirmed", "unknown"],
+      "description": "Only humans can produce 'confirmed'. Every kind except 'unknown' must reference evidence."}
+  }
+}
