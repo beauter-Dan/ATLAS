@@ -1,7 +1,11 @@
 # ATLAS CORE
 **Automated Target Intelligence and Analysis System — Core Engine** (v1.1.0, Phase 13: verified & hardened)
 
-Evidence-driven backend for **authorized** security assessments. It never invents technical facts, never auto-authorizes
+E
+
+
+
+vidence-driven backend for **authorized** security assessments. It never invents technical facts, never auto-authorizes
 discovered assets, never lets AI confirm a finding, and contains no exploitation or destructive-testing capability.
 
 | Document | What it is |
