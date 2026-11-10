@@ -29,8 +29,11 @@ def current_user(res: tuple[User, AuthSession] = Depends(current_session)) -> Us
 
 
 def require_role(minimum: str):
-    def dep(user: User = Depends(current_user)) -> User:
+    def dep(request: Request, user: User = Depends(current_user), db: Session = Depends(get_db)) -> User:
         if ROLE_LEVEL[user.role] < ROLE_LEVEL[minimum]:
+            from app.services.audit import audit
+            audit(db, actor_id=user.id, action="role_denied", resource_type="endpoint", outcome="denied", commit=True,
+                  details={"needed_role": minimum, "role": user.role, "method": request.method, "path": request.url.path})
             raise ApiError(403, "forbidden", f"Requires role '{minimum}' or higher")
         return user
     return dep

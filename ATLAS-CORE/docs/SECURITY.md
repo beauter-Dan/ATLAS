@@ -48,7 +48,7 @@ default), `closed` (503) or `open`.
 Append-only: no API write path, and on PostgreSQL a trigger rejects any `UPDATE`/`DELETE`. No foreign keys, so history survives deletion of
 the audited objects. Readable only by admins at `GET /auth/audit-logs` (filters: `assessment_id`, `action`, `outcome`).
 Events: logins (incl. denied/locked/unknown), refresh and reuse, logout, password/MFA changes, user/role changes, membership changes,
-access and scope denials and decisions, every CRUD mutation, collection, internal analysis, AI runs, experiment lifecycle, evidence
+access, role and scope denials and scope decisions, every CRUD mutation, collection, internal analysis, AI runs, experiment lifecycle, evidence
 verification, finding classification, report generation, job queued/rejected/completed.
 *Limit:* a database superuser can still disable the trigger; ship audit rows to an external write-once store for stronger guarantees.
 

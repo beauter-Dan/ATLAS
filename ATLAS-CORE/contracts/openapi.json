@@ -3,7 +3,7 @@
   "info": {
     "title": "ATLAS CORE API",
     "description": "Automated Target Intelligence and Analysis System - Core Engine. Evidence-driven analysis for AUTHORIZED assessments only. Success: {data}; error: {error:{code,message,details}}.",
-    "version": "1.1.0"
+    "version": "1.2.1"
   },
   "paths": {
     "/api/v1/health": {
@@ -3969,6 +3969,33 @@
         }
       }
     },
+    "/api/v1/dashboard/summary": {
+      "get": {
+        "tags": [
+          "dashboard"
+        ],
+        "summary": "Dashboard Summary",
+        "description": "Counts and recent activity limited to what the caller may see. `percent` = workflow stages completed out of 7.",
+        "operationId": "dashboard_summary",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Data"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/api/v1/assessments/{aid}/status": {
       "post": {
         "tags": [
@@ -7932,6 +7959,17 @@
             ],
             "title": "Base Domain"
           },
+          "organization": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization"
+          },
           "description": {
             "anyOf": [
               {
@@ -8038,6 +8076,18 @@
             "type": "string",
             "maxLength": 255,
             "title": "Base Domain"
+          },
+          "organization": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization"
           },
           "description": {
             "anyOf": [
@@ -8186,6 +8236,18 @@
               }
             ],
             "title": "Base Domain"
+          },
+          "organization": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization"
           },
           "description": {
             "anyOf": [

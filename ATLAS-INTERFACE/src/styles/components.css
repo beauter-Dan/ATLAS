@@ -113,3 +113,14 @@ textarea.input { resize: vertical; }
   .kv { grid-template-columns: 1fr; gap: 0; }
   .kv dd { margin-bottom: var(--s-3); }
 }
+
+/* Sign-in */
+.login { min-height: 100vh; display: grid; place-items: center; padding: var(--s-5); }
+.login__card { width: min(380px, 100%); display: grid; gap: var(--s-3); }
+.login__title { margin: 0; }
+.login__submit { width: 100%; margin-top: var(--s-2); }
+.topbar__user { color: var(--muted); font-size: var(--fs-sm); }
+.badge-row { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+.scope-block + .scope-block { margin-top: var(--s-4); padding-top: var(--s-3); border-top: 1px solid var(--border); }
+.inline-form { display: flex; gap: var(--s-3); align-items: flex-end; flex-wrap: wrap; margin-top: var(--s-4); }
+.inline-form .btn { margin-bottom: var(--s-1); }

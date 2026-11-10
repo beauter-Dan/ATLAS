@@ -42,7 +42,7 @@ def target_before_update(db, obj, d, user):
         obj.credentials_encrypted = encrypt_secret(c) if c else None
 
 
-TARGET_FIELDS = {"name": (str, ...), "base_domain": (str, ...), "description": (O[str], None),
+TARGET_FIELDS = {"name": (str, ...), "base_domain": (str, ...), "organization": (O[str], None), "description": (O[str], None),
                  "authorization_reference": (O[str], None), "authorized_by": (O[str], None),
                  "authorization_document": (O[str], None), "authorization_valid_from": (O[datetime], None),
                  "authorization_valid_until": (O[datetime], None), "credentials": (O[Annotated[str, Field(max_length=4096)]], None)}

@@ -33,8 +33,14 @@ def _row(m: AssessmentMember, u: User | None, owner_id):
 def list_members(aid: str, db: Session = Depends(get_db), user: User = Depends(require_role("viewer"))):
     a = access.require(db, user, aid, "viewer")
     rows = db.scalars(select(AssessmentMember).where(AssessmentMember.assessment_id == aid)).all()
-    users = {u.id: u for u in db.scalars(select(User).where(User.id.in_([m.user_id for m in rows] or ["-"]))).all()}
-    return {"data": [_row(m, users.get(m.user_id), a.owner_id) for m in rows]}
+    ids = [m.user_id for m in rows] + ([a.owner_id] if a.owner_id else [])
+    users = {u.id: u for u in db.scalars(select(User).where(User.id.in_(ids or ["-"]))).all()}
+    data = [_row(m, users.get(m.user_id), a.owner_id) for m in rows if m.user_id != a.owner_id]
+    owner = users.get(a.owner_id)
+    if owner:  # ownership is stored on the assessment, not as a membership row: list the owner explicitly, first
+        cap = {"viewer": "viewer", "analyst": "analyst"}.get(owner.role, "approver")  # effective permission = min(global role, approver)
+        data.insert(0, {"user_id": owner.id, "username": owner.username, "permission": cap, "is_owner": True})
+    return {"data": data}
 
 
 @router.put("/assessments/{aid}/members/{uid}", operation_id="set_member")

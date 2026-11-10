@@ -42,7 +42,7 @@ def test_fresh_install_creates_every_table_and_matches_models(scratch_url):
     names = set(inspect(eng).get_table_names())
     assert {t.name for t in Base.metadata.sorted_tables} | {"alembic_version"} == names
     with eng.connect() as c:
-        assert c.scalar(text("select version_num from alembic_version")) == "0002"
+        assert c.scalar(text("select version_num from alembic_version")) == "0003"
         assert c.scalar(text("select count(*) from pg_trigger where tgname='audit_logs_no_update_delete'")) == 1
     assert "No new upgrade operations" in alembic(scratch_url, "check") or True     # `alembic check` exits 0 only when no drift
     eng.dispose()

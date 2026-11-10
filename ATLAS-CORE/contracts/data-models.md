@@ -72,6 +72,7 @@ Constraints: `role IN ('viewer', 'analyst', 'approver', 'admin')`
 | id | VARCHAR(36) | no | PK |
 | name | VARCHAR(200) | no |  |
 | base_domain | VARCHAR(255) | no |  |
+| organization | VARCHAR(200) | yes |  |
 | description | TEXT | yes |  |
 | authorization_reference | VARCHAR(255) | yes |  |
 | authorized_by | VARCHAR(255) | yes |  |
@@ -97,7 +98,7 @@ Constraints: `role IN ('viewer', 'analyst', 'approver', 'admin')`
 | owner_id | VARCHAR(36) | yes | FK→users.id |
 | created_at | DATETIME | no |  |
 
-Constraints: `status IN ('draft', 'active', 'paused', 'completed', 'archived')`; `environment IN ('test', 'staging', 'production')`
+Constraints: `environment IN ('test', 'staging', 'production')`; `status IN ('draft', 'active', 'paused', 'completed', 'archived')`
 
 ## assessment_members
 
@@ -125,7 +126,7 @@ Constraints: `permission IN ('viewer', 'analyst', 'approver')`
 | details | JSON | no |  |
 | created_at | DATETIME | no |  |
 
-Constraints: `scope_state IN ('authorized', 'excluded', 'discovered')`; `asset_type IN ('domain', 'subdomain', 'ip', 'url', 'api', 'service', 'database', 'storage', 'third_party', 'auth_system', 'application_server')`
+Constraints: `asset_type IN ('domain', 'subdomain', 'ip', 'url', 'api', 'service', 'database', 'storage', 'third_party', 'auth_system', 'application_server')`; `scope_state IN ('authorized', 'excluded', 'discovered')`
 
 ## hypotheses
 
@@ -145,7 +146,7 @@ Constraints: `scope_state IN ('authorized', 'excluded', 'discovered')`; `asset_t
 | origin | VARCHAR(30) | no |  |
 | created_at | DATETIME | no |  |
 
-Constraints: `confidence IN ('low', 'medium', 'high')`; `status IN ('open', 'experiment_planned', 'validated', 'refuted', 'closed')`
+Constraints: `status IN ('open', 'experiment_planned', 'validated', 'refuted', 'closed')`; `confidence IN ('low', 'medium', 'high')`
 
 ## reports
 
@@ -295,7 +296,7 @@ Constraints: `classification IN ('confirmed_vulnerability', 'potential_vulnerabi
 | timestamp | DATETIME | no |  |
 | created_at | DATETIME | no |  |
 
-Constraints: `kind IN ('direct_observation', 'inference', 'hypothesis', 'confirmed', 'unknown')`; `verification_status IN ('unverified', 'verified', 'disputed')`; `kind = 'unknown' OR evidence_id IS NOT NULL`; `confidence IN ('low', 'medium', 'high')`
+Constraints: `confidence IN ('low', 'medium', 'high')`; `kind IN ('direct_observation', 'inference', 'hypothesis', 'confirmed', 'unknown')`; `verification_status IN ('unverified', 'verified', 'disputed')`; `kind = 'unknown' OR evidence_id IS NOT NULL`
 
 ## relationships
 

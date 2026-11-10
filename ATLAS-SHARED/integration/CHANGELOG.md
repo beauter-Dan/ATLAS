@@ -1,5 +1,13 @@
 # ATLAS API Changelog
 
+## 1.2.1 — fix (no contract shape change)
+- `GET /assessments/{id}/members` now **includes the owner** (first entry, `is_owner: true`, permission = the owner's effective permission, i.e. capped by their global role). Previously the owner was omitted because ownership is stored on the assessment, not as a membership row. Found while building the interface's Assessments screen.
+
+## 1.2.0 — interface integration (additive; no breaking changes)
+- **Added** `GET /dashboard/summary` (viewer+): `{targets, active_assessments, assets, technologies, pending_hypotheses, confirmed_findings, assessment_progress[{id,name,status,percent}], recent_activity[{id,timestamp,message}]}`. Everything is filtered by the caller's access. `percent` = workflow stages completed out of 7 (scope defined, activated, data collected, analyzed, experiment completed, finding recorded, report generated). `recent_activity` exposes only coarse labels (no actors, no audit details).
+- **Added** `organization` (optional, ≤200 chars) on targets (`POST/PATCH/GET /targets`). Migration `0003`.
+- **Audit:** refusals by global role are now recorded as action `role_denied`.
+
 ## 1.1.0 — Phase 13 (verification & hardening)  ⚠ contains client-visible changes
 **Breaking / behavioural**
 - **Tokens:** `POST /auth/login` now returns `{access_token, refresh_token, token_type, expires_in, user}`. Access tokens are opaque, expire after **15 min** (was 1 h signed token); use `POST /auth/refresh`. Old tokens issued before the upgrade are invalid.

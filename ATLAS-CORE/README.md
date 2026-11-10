@@ -1,11 +1,7 @@
 # ATLAS CORE
-**Automated Target Intelligence and Analysis System — Core Engine** (v1.1.0, Phase 13: verified & hardened)
+**Automated Target Intelligence and Analysis System — Core Engine** (v1.2.1)
 
-E
-
-
-
-vidence-driven backend for **authorized** security assessments. It never invents technical facts, never auto-authorizes
+Evidence-driven backend for **authorized** security assessments. It never invents technical facts, never auto-authorizes
 discovered assets, never lets AI confirm a finding, and contains no exploitation or destructive-testing capability.
 
 | Document | What it is |
@@ -40,8 +36,8 @@ trigger, and is **not** the supported production database. Set `ATLAS_RATE_LIMIT
 
 ## 3. Migrations
 ```bash
-alembic upgrade head          # fresh install: 0001 -> 0002
-alembic current               # expect: 0002 (head)
+alembic upgrade head          # fresh install: 0001 -> 0002 -> 0003
+alembic current               # expect: 0003 (head)
 alembic check                 # expect: "No new upgrade operations detected" (no model/migration drift)
 alembic downgrade 0001        # reversible (drops sessions/members/MFA columns and the audit trigger)
 # after changing models:  alembic revision --autogenerate -m "msg"  then REVIEW the file before applying
@@ -79,7 +75,7 @@ data and fake network transports; nothing contacts external infrastructure. Mark
 Verified result of the last run: **157 tests — PostgreSQL 157 passed; SQLite 138 passed + 19 PostgreSQL-only skipped.**
 
 ## 7. API
-`/api/v1`, OpenAPI at `/docs`, contract at `contracts/openapi.json` (72 paths / 93 operations; regenerate with
+`/api/v1`, OpenAPI at `/docs`, contract at `contracts/openapi.json` (73 paths / 94 operations; regenerate with
 `python -m scripts.export_contracts`, which also updates `../ATLAS-SHARED/contracts/`; a test fails if it is stale).
 Envelope: `{data, meta?}` / `{error:{code,message,details}}`. See `../ATLAS-SHARED/integration/API-CONTRACT.md`.
 

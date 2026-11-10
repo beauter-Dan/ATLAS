@@ -1,18 +1,22 @@
-# ATLAS-INTERFACE ↔ ATLAS-CORE gap analysis
+# ATLAS-INTERFACE ↔ ATLAS-CORE gap analysis — status after integration (CORE v1.2.0)
 
-`ATLAS-INTERFACE` (React/Vite scaffold) was **joined into this package unmodified**. It runs in mock mode by default
-(`VITE_USE_MOCK=true`) and its own files state its types and endpoint map are **provisional** until the shared contract is applied.
-I did not run the interface and did not change its code (outside this phase's scope); this is what must change before `VITE_USE_MOCK=false` works.
+Verified by: interface unit/component tests (116), the full app in demo mode, and an **end-to-end suite of 17 tests that drives the interface's real
+service layer against a live ATLAS CORE on PostgreSQL** (`npm run test:e2e`). Not verified: behaviour in a real browser.
 
-| # | Interface today | Backend reality (v1.1.0) | Needed |
+| # | Gap found earlier | Resolution | Evidence |
 |---|---|---|---|
-| 1 | Calls `GET /dashboard/summary` | **Endpoint does not exist** in the contract | decide: add a read-only summary endpoint to CORE (new feature, not done in this phase) *or* compose the dashboard from `/assessments`, `/assets`, `/technologies`, `/hypotheses`, `/findings` (`meta.total` gives counts) |
-| 2 | `Target` = `{organization, authorization:{status,reference,authorizedBy,validFrom,validUntil}, permittedAssets[], excludedAssets[], assessments[]}` camelCase | `Target` = `{name, base_domain, authorization_reference, authorized_by, authorization_valid_from/until, …}` snake_case; scope lives in **assessment** `scope-rules`; no `organization`, no authorization `status` | map/rename in the service layer; derive `status` (pending/authorized/expired) client-side from the validity window; `permitted/excluded` come from `GET /scope-rules?assessment_id=` |
-| 3 | `apiClient` throws `ApiError` from the HTTP status only, `code:'http_error'` | errors are `{error:{code,message,details}}` | read `error.code`/`message` (e.g. show `scope_violation`, `account_locked`, `mfa_required`) |
-| 4 | Sends a single bearer token held in memory; no login screen | needs login → tokens (15 min) → refresh on 401 | add login (+ optional TOTP step) and a refresh-once-then-relogin interceptor; keep tokens in memory as it already does |
-| 5 | Treats lists as plain arrays | lists are `{data, meta:{page,page_size,total}}` | unwrap `data`, use `meta` for paging |
-| 6 | Assumes an unscoped `/targets` | results are filtered per user; strangers get **404** | show "not found or no access" without leaking existence |
-| 7 | Base URL `http://localhost:8000/api/v1` | matches; CORS now allows `http://localhost:5173` | set `ATLAS_CORS_ORIGINS` if the UI runs elsewhere |
-| 8 | `/targets/new`, `/findings`, `/assets`, `/assessments`, `/reports`, `/experiments`, `/architecture` routes | all exist in the contract (`/architecture?assessment_id=` requires the query param) | follow `openapi.json` exactly when replacing the mock handler |
+| 1 | UI called `GET /dashboard/summary`, absent from the contract | **Added to CORE** (access-filtered, progress computed from real workflow stages, coarse activity feed). UI maps snake_case → camelCase | `test_dashboard.py` (6), e2e "analyst: login, list, detail … dashboard", mapper test |
+| 2 | UI `Target` model differed from backend (camelCase, `organization`, authorization `status`, target-level permitted/excluded assets) | Added optional `organization` to CORE (migration 0003). UI maps fields in one module; `status` is **derived** from the authorization window (mirrors the server rule); scope is shown **per assessment** because that is where the backend defines it | `mappers.test.js`, `targetService.test.js`, e2e detail test |
+| 3 | UI error handling used HTTP status only | `ApiError` carries the backend `code`/`details`; messages translated for people | `apiClient.test.js`, `utils.test.js` |
+| 4 | No sign-in; single static token | Sign-in screen (incl. TOTP step), in-memory tokens, one-shot shared refresh, session-lost handling, sign-out | `login.test.jsx`, `apiClient.test.js`, e2e refresh/revoke tests |
+| 5 | UI assumed plain arrays | Services unwrap `{data, meta}`; lists fetch **all pages** (page size 200) | `targetService.test.js` (fetchAll) |
+| 6 | UI assumed unscoped targets | Access-filtered lists; 404 shown as "not found or no access" | e2e "another user cannot see…", `targets.test.jsx` |
+| 7 | CORS | Backend allow-list; preflight verified at HTTP level | `test_regression.py`, e2e CORS test |
+| 8 | Routes/placeholders | Dashboard, Targets and **Assessments** (list/create/detail, status, scope rules, members) are real; other sections remain placeholders | `assessments.test.jsx`, `assessments.test.js`, e2e "assessments" suite (8 tests) |
 
-Recommendation: replace `src/types/models.js` and `src/services/contract.js` with types generated from `contracts/openapi.json` (e.g. `openapi-typescript`) and delete the mock handler's divergent shapes.
+## Still open
+* The remaining screens (Assets, Observations, Architecture, Hypotheses, Experiments, Findings, Reports) are not built.
+  Their endpoints and mapping patterns are in place for them to follow (`contract.js`, `mappers.js`, `pagination.js`).
+* No UI yet to *run* collection, experiments, AI analysis or reports for an assessment (the Assessments page manages scope, members and status only).
+* No real-browser run; no accessibility or visual regression testing.
+* Reload signs the user out (tokens are memory-only by design).

@@ -199,3 +199,20 @@ def test_denials_are_audited(client, users, new_user, populated):
     rows = client.get("/api/v1/auth/audit-logs?action=access_denied&outcome=denied", headers=users["admin"]["h"]).json()["data"]
     assert len(rows) >= 2 and all(r["actor_id"] == bob["id"] for r in rows)
     assert client.get("/api/v1/auth/audit-logs", headers=bob["h"]).status_code == 403
+
+
+def test_member_list_includes_the_owner_once_and_first(client, users, world):
+    aid = world["aid"]
+    data = client.get(f"/api/v1/assessments/{aid}/members", headers=users["viewer"]["h"]).json()["data"]
+    owners = [m for m in data if m["is_owner"]]
+    assert len(owners) == 1 and owners[0]["username"] == "analyst1" and owners[0]["user_id"] == users["analyst"]["id"]
+    assert data[0] is not None and data[0]["is_owner"] is True                       # first
+    assert owners[0]["permission"] == "analyst"                                      # capped by the owner's global role
+    assert {m["username"] for m in data} == {"analyst1", "approver1", "approver2", "viewer1"}
+    # an explicit membership row for the owner (e.g. legacy data) must not duplicate the entry
+    from app.db.session import get_sessionmaker
+    from app.models import AssessmentMember
+    s = get_sessionmaker()()
+    s.add(AssessmentMember(assessment_id=aid, user_id=users["analyst"]["id"], permission="viewer")); s.commit(); s.close()
+    again = client.get(f"/api/v1/assessments/{aid}/members", headers=users["viewer"]["h"]).json()["data"]
+    assert [m["username"] for m in again].count("analyst1") == 1

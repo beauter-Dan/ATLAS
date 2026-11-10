@@ -1,15 +1,15 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-06T05:21:22.762797+00:00",
+  "generated_at": "2026-11-10T11:04:13.611217+00:00",
   "disclaimer": "Findings are evidence-based. 'confirmed' status requires human-verified evidence; AI output is limited to inferences and hypotheses that cite evidence.",
   "assessment": {
-    "id": "232f09e7-1dde-4d54-bafc-84d35d17a226",
+    "id": "b88bda9a-ed18-4299-a72d-47b082d4c68b",
     "name": "Synthetic baseline assessment",
     "status": "active",
     "environment": "staging"
   },
   "target": {
-    "id": "4a9ab299-f442-4b1a-a0b5-3834a0afbee8",
+    "id": "d9adbb7a-7a1d-4e80-b9b8-cef697849e2a",
     "name": "Synthetic Shop Ltd",
     "base_domain": "example.test",
     "authorization_reference": "SYNTH-AUTH-001",
@@ -34,43 +34,43 @@
   ],
   "assets": [
     {
-      "id": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+      "id": "514496e7-e2c5-4f4a-aa63-97350a3d0179",
       "asset_type": "domain",
       "value": "example.test",
       "scope_state": "authorized"
     },
     {
-      "id": "0bc50632-34d5-484b-bab2-5c1357d18496",
+      "id": "4bfd56b7-1c72-4f4a-8213-8d8a6a49aac4",
       "asset_type": "ip",
       "value": "203.0.113.10",
       "scope_state": "discovered"
     },
     {
-      "id": "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
+      "id": "6803a98b-6b58-4678-910b-bec39ef4b7f5",
       "asset_type": "subdomain",
       "value": "cdn.example.test",
       "scope_state": "authorized"
     },
     {
-      "id": "41f1e2b7-c4ba-48b8-9ee7-bb008c11ed17",
+      "id": "9bfc284d-4717-401f-82b4-fdb5bfed186a",
       "asset_type": "subdomain",
       "value": "api.example.test",
       "scope_state": "authorized"
     },
     {
-      "id": "49b255b8-23d4-4f83-aa2b-d6150d929d44",
+      "id": "ed18986f-4df4-428e-9dec-35a321358da0",
       "asset_type": "subdomain",
       "value": "admin.example.test",
       "scope_state": "excluded"
     },
     {
-      "id": "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9",
+      "id": "3c397b6b-03a4-4420-b198-a14ab223b2cb",
       "asset_type": "third_party",
       "value": "cdn.thirdparty.test",
       "scope_state": "discovered"
     },
     {
-      "id": "a34a04ea-7afe-4cec-a359-8ed31d224cbe",
+      "id": "82fbc062-dcf1-4a6b-8b8c-78bcb5e87d85",
       "asset_type": "application_server",
       "value": "synthetic-shop-app",
       "scope_state": "discovered"
@@ -82,28 +82,28 @@
       "version": "1.18.0",
       "category": "web_server",
       "confidence": "high",
-      "evidence_id": "87bf779a-2cb5-4438-8704-0edb44b405c6"
+      "evidence_id": "c4849f01-e03c-4c85-a855-267d11050005"
     },
     {
       "name": "Express",
       "version": null,
       "category": "framework",
       "confidence": "high",
-      "evidence_id": "87bf779a-2cb5-4438-8704-0edb44b405c6"
+      "evidence_id": "c4849f01-e03c-4c85-a855-267d11050005"
     },
     {
       "name": "Python",
       "version": null,
       "category": "language",
       "confidence": "high",
-      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      "evidence_id": "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
     },
     {
       "name": "FastAPI",
       "version": null,
       "category": "framework",
       "confidence": "high",
-      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      "evidence_id": "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
     }
   ],
   "observation_summary": {
@@ -129,49 +129,49 @@
   "architecture": {
     "nodes": [
       {
-        "id": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
+        "id": "514496e7-e2c5-4f4a-aa63-97350a3d0179",
         "type": "domain",
         "value": "example.test",
         "scope_state": "authorized",
         "zone": "public_internet"
       },
       {
-        "id": "0bc50632-34d5-484b-bab2-5c1357d18496",
+        "id": "4bfd56b7-1c72-4f4a-8213-8d8a6a49aac4",
         "type": "ip",
         "value": "203.0.113.10",
         "scope_state": "discovered",
         "zone": "public_internet"
       },
       {
-        "id": "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
+        "id": "6803a98b-6b58-4678-910b-bec39ef4b7f5",
         "type": "subdomain",
         "value": "cdn.example.test",
         "scope_state": "authorized",
         "zone": "public_internet"
       },
       {
-        "id": "41f1e2b7-c4ba-48b8-9ee7-bb008c11ed17",
+        "id": "9bfc284d-4717-401f-82b4-fdb5bfed186a",
         "type": "subdomain",
         "value": "api.example.test",
         "scope_state": "authorized",
         "zone": "public_internet"
       },
       {
-        "id": "49b255b8-23d4-4f83-aa2b-d6150d929d44",
+        "id": "ed18986f-4df4-428e-9dec-35a321358da0",
         "type": "subdomain",
         "value": "admin.example.test",
         "scope_state": "excluded",
         "zone": "public_internet"
       },
       {
-        "id": "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9",
+        "id": "3c397b6b-03a4-4420-b198-a14ab223b2cb",
         "type": "third_party",
         "value": "cdn.thirdparty.test",
         "scope_state": "discovered",
         "zone": "external_third_party"
       },
       {
-        "id": "a34a04ea-7afe-4cec-a359-8ed31d224cbe",
+        "id": "82fbc062-dcf1-4a6b-8b8c-78bcb5e87d85",
         "type": "application_server",
         "value": "synthetic-shop-app",
         "scope_state": "discovered",
@@ -180,29 +180,29 @@
     ],
     "edges": [
       {
-        "id": "4ac0f6b1-3de6-4090-beb3-fd73cbca261e",
-        "source": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
-        "target": "0bc50632-34d5-484b-bab2-5c1357d18496",
+        "id": "568264cf-185a-4e3c-9873-4a65b5b54e02",
+        "source": "514496e7-e2c5-4f4a-aa63-97350a3d0179",
+        "target": "4bfd56b7-1c72-4f4a-8213-8d8a6a49aac4",
         "relation": "resolves_to",
-        "evidence_id": "4fb2c2ec-e77b-4ab0-9f20-126f9da4aec9",
+        "evidence_id": "eb9dfcb0-df08-49d2-bf9b-15bc9c9c2429",
         "confidence": "high",
         "crosses_trust_boundary": false
       },
       {
-        "id": "a126332d-108c-41d0-bbe0-7f19ff0a09eb",
-        "source": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
-        "target": "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
+        "id": "6a1e8f48-425e-44f7-9de0-8443c52f4f9e",
+        "source": "514496e7-e2c5-4f4a-aa63-97350a3d0179",
+        "target": "6803a98b-6b58-4678-910b-bec39ef4b7f5",
         "relation": "aliases",
-        "evidence_id": "4fb2c2ec-e77b-4ab0-9f20-126f9da4aec9",
+        "evidence_id": "eb9dfcb0-df08-49d2-bf9b-15bc9c9c2429",
         "confidence": "high",
         "crosses_trust_boundary": false
       },
       {
-        "id": "4ca03a6f-5e37-4644-b044-a7497e5d3356",
-        "source": "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
-        "target": "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9",
+        "id": "be30c8e9-2e1e-4f63-be0a-ea82d93a381f",
+        "source": "514496e7-e2c5-4f4a-aa63-97350a3d0179",
+        "target": "3c397b6b-03a4-4420-b198-a14ab223b2cb",
         "relation": "references",
-        "evidence_id": "61296a29-56de-4ee6-a78d-8efa4ef6f753",
+        "evidence_id": "e89569e5-b233-444e-aa50-6af06a66bfd8",
         "confidence": "high",
         "crosses_trust_boundary": true
       }
@@ -211,23 +211,23 @@
       {
         "from_zone": "public_internet",
         "to_zone": "external_third_party",
-        "edge_id": "4ca03a6f-5e37-4644-b044-a7497e5d3356",
-        "evidence_id": "61296a29-56de-4ee6-a78d-8efa4ef6f753"
+        "edge_id": "be30c8e9-2e1e-4f63-be0a-ea82d93a381f",
+        "evidence_id": "e89569e5-b233-444e-aa50-6af06a66bfd8"
       }
     ],
     "zones": {
       "public_internet": [
-        "eb1a5f08-365d-4abd-91d8-66ea00c5e281",
-        "0bc50632-34d5-484b-bab2-5c1357d18496",
-        "2b20e5d5-294f-4a4e-920f-c97f0de3f67a",
-        "41f1e2b7-c4ba-48b8-9ee7-bb008c11ed17",
-        "49b255b8-23d4-4f83-aa2b-d6150d929d44"
+        "514496e7-e2c5-4f4a-aa63-97350a3d0179",
+        "4bfd56b7-1c72-4f4a-8213-8d8a6a49aac4",
+        "6803a98b-6b58-4678-910b-bec39ef4b7f5",
+        "9bfc284d-4717-401f-82b4-fdb5bfed186a",
+        "ed18986f-4df4-428e-9dec-35a321358da0"
       ],
       "external_third_party": [
-        "bffac3ac-c61e-4a33-aa5f-d26d81a4eed9"
+        "3c397b6b-03a4-4420-b198-a14ab223b2cb"
       ],
       "application": [
-        "a34a04ea-7afe-4cec-a359-8ed31d224cbe"
+        "82fbc062-dcf1-4a6b-8b8c-78bcb5e87d85"
       ]
     },
     "stats": {
@@ -241,31 +241,31 @@
       "method": "GET",
       "path": "/health",
       "auth_required": null,
-      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      "evidence_id": "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
     },
     {
       "method": "GET",
       "path": "/orders/{order_id}",
       "auth_required": true,
-      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      "evidence_id": "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
     },
     {
       "method": "POST",
       "path": "/orders/{order_id}/cancel",
       "auth_required": null,
-      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      "evidence_id": "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
     },
     {
       "method": "POST",
       "path": "/checkout",
       "auth_required": true,
-      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      "evidence_id": "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
     },
     {
       "method": "DELETE",
       "path": "/users/{user_id}",
       "auth_required": null,
-      "evidence_id": "5556b75c-ee62-43d2-8ec3-357c199502ca"
+      "evidence_id": "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
     }
   ],
   "api_endpoints": [
@@ -273,13 +273,13 @@
       "method": "GET",
       "path": "/orders/{order_id}",
       "documented": true,
-      "evidence_id": "30adf8cf-15da-45ab-b298-4e7829821050"
+      "evidence_id": "d15c96f5-285e-44be-88c7-78d35866e886"
     },
     {
       "method": "POST",
       "path": "/checkout",
       "documented": true,
-      "evidence_id": "30adf8cf-15da-45ab-b298-4e7829821050"
+      "evidence_id": "d15c96f5-285e-44be-88c7-78d35866e886"
     }
   ],
   "databases": [
@@ -305,13 +305,13 @@
   ],
   "hypotheses": [
     {
-      "id": "401284ff-6628-41a0-8f88-ce208c386ef3",
+      "id": "acf8b131-6099-435b-a0ab-c1ddb8c11745",
       "category": "application_state_transitions",
       "title": "Workflow route /orders/{order_id} may allow out-of-order state transitions",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "State machine definition",
@@ -319,13 +319,13 @@
       ]
     },
     {
-      "id": "44bc74e7-7001-476f-a686-33b62e44369a",
+      "id": "23b78981-2983-45af-8eda-1b1569306608",
       "category": "authentication_authorization_boundary",
       "title": "State-changing route POST /orders/{order_id}/cancel may lack an authentication check",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "Middleware/gateway configuration",
@@ -333,13 +333,13 @@
       ]
     },
     {
-      "id": "43b521b3-87f5-40fc-b0d9-e029cdecf69b",
+      "id": "f6ef5adc-b99b-45d7-87a0-974ec1e5fae8",
       "category": "data_ownership",
       "title": "Object access on POST /orders/{order_id}/cancel may not verify record ownership",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "Handler source",
@@ -347,13 +347,13 @@
       ]
     },
     {
-      "id": "c90177e5-ac31-468f-ab13-2738941b0131",
+      "id": "8d2679a8-1a05-42c0-a5b5-f146b29dcd5d",
       "category": "application_state_transitions",
       "title": "Workflow route /orders/{order_id}/cancel may allow out-of-order state transitions",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "State machine definition",
@@ -361,13 +361,13 @@
       ]
     },
     {
-      "id": "983a664b-4f7e-46bd-8fa2-57329a0e8211",
+      "id": "0162690b-3330-4bb3-8f14-d82faa742427",
       "category": "application_state_transitions",
       "title": "Workflow route /checkout may allow out-of-order state transitions",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "State machine definition",
@@ -375,13 +375,13 @@
       ]
     },
     {
-      "id": "efc81160-f995-4909-b342-e7bc454e5880",
+      "id": "d46709c1-563f-4cc7-82d8-b112127908e1",
       "category": "authentication_authorization_boundary",
       "title": "State-changing route DELETE /users/{user_id} may lack an authentication check",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "Middleware/gateway configuration",
@@ -389,13 +389,13 @@
       ]
     },
     {
-      "id": "296c9e77-25e7-4896-b33f-c09c348e6572",
+      "id": "3d1dd922-fc9e-4410-880f-9af4875d8de4",
       "category": "data_ownership",
       "title": "Object access on DELETE /users/{user_id} may not verify record ownership",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "Handler source",
@@ -403,13 +403,13 @@
       ]
     },
     {
-      "id": "1ec2b6b7-29ee-47ac-9a6d-d597778d14ad",
+      "id": "77fecb05-e881-42ac-8002-8665e4a1065a",
       "category": "data_ownership",
       "title": "Table orders is owner-scoped via user_id; queries may not always filter by owner",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "c5f8210f-febe-4911-895d-4c1d853637a6"
+        "fce14bab-be1f-46ec-b3f6-ce4fbbf0e381"
       ],
       "missing_evidence": [
         "Data-access layer code",
@@ -417,13 +417,13 @@
       ]
     },
     {
-      "id": "1e2e134d-eda8-4138-aa97-befff4682bab",
+      "id": "962311c0-4b94-4b24-8495-ecedf629fb35",
       "category": "third_party_dependencies",
       "title": "nginx 1.18.0 exposed in responses may have published advisories",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "87bf779a-2cb5-4438-8704-0edb44b405c6"
+        "c4849f01-e03c-4c85-a855-267d11050005"
       ],
       "missing_evidence": [
         "Actual installed version",
@@ -431,13 +431,13 @@
       ]
     },
     {
-      "id": "c5fb7249-7b34-4c79-b951-51997dbde1c5",
+      "id": "92d0f855-44c4-4619-9c45-cd70048460a5",
       "category": "third_party_dependencies",
       "title": "Third-party scripts without integrity checks: cdn.thirdparty.test",
       "confidence": "medium",
       "status": "open",
       "supporting_evidence_ids": [
-        "61296a29-56de-4ee6-a78d-8efa4ef6f753"
+        "e89569e5-b233-444e-aa50-6af06a66bfd8"
       ],
       "missing_evidence": [
         "Which pages load these scripts",
@@ -445,13 +445,13 @@
       ]
     },
     {
-      "id": "609409b1-c1ab-4e6e-a23e-8b8d98e6dde1",
+      "id": "d96bee46-d5c3-4e33-b510-3170202f0884",
       "category": "protocol_interpretation_differences",
       "title": "Proxy layer and origin both visible; they may parse requests differently",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "406044a6-3ad2-45b8-a6bf-a1f5aa205708"
+        "d627e949-369a-477f-bfe9-06f09b9f3498"
       ],
       "missing_evidence": [
         "Proxy and origin configuration",
@@ -459,14 +459,14 @@
       ]
     },
     {
-      "id": "b9dd5d6d-18ff-45c6-b7a7-0a6850c99512",
+      "id": "ed542181-8a98-4d54-9ce0-794cc0e4eb81",
       "category": "architectural_inconsistencies",
       "title": "3 source routes do not appear in the public API description",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "30adf8cf-15da-45ab-b298-4e7829821050",
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5",
+        "d15c96f5-285e-44be-88c7-78d35866e886"
       ],
       "missing_evidence": [
         "Whether routes are internal-only",
@@ -474,26 +474,26 @@
       ]
     },
     {
-      "id": "5bd9a5d2-d5cb-43b3-826d-c68910ced269",
+      "id": "ce8a3e69-fd9c-4460-84a1-12980c207957",
       "category": "api_trust_assumptions",
       "title": "Documented POST /checkout declares no security requirement",
       "confidence": "low",
       "status": "open",
       "supporting_evidence_ids": [
-        "30adf8cf-15da-45ab-b298-4e7829821050"
+        "d15c96f5-285e-44be-88c7-78d35866e886"
       ],
       "missing_evidence": [
         "Gateway/app enforcement"
       ]
     },
     {
-      "id": "9f6db4b4-89b2-4e9e-bbe8-758aaefbcf32",
+      "id": "90a9ac75-e562-4f20-beb2-19c68b1eda46",
       "category": "data_ownership",
       "title": "Object access on GET /orders/{order_id} may not verify record ownership",
       "confidence": "low",
       "status": "experiment_planned",
       "supporting_evidence_ids": [
-        "5556b75c-ee62-43d2-8ec3-357c199502ca"
+        "9fdbed5c-b726-4f9c-904b-0784fb1c94c5"
       ],
       "missing_evidence": [
         "Handler source",
@@ -503,10 +503,10 @@
   ],
   "experiments": [
     {
-      "id": "42142d05-ccb9-4949-9574-3900bd75be84",
+      "id": "6210ff12-5eb4-47bd-b41c-68342405a872",
       "experiment_type": "header_review",
       "status": "completed",
-      "approved_by": "d26c1dfe-1c05-4e46-b77e-9d3d1a5cc2eb",
+      "approved_by": "25c82c85-2230-4ab1-b44e-02e74e5cd648",
       "result": {
         "requests": 1,
         "present": {
@@ -515,7 +515,7 @@
         "absent": [
           "content-security-policy"
         ],
-        "evidence_id": "52f01a13-9f66-4d87-897e-3cc536e56c66"
+        "evidence_id": "e5a5a8c9-d2cf-4644-b2c9-c1eef9594c63"
       }
     }
   ],
@@ -523,15 +523,15 @@
     "confirmed_vulnerability": [],
     "potential_vulnerability": [
       {
-        "id": "762200ec-c96d-45c0-bc68-6122ab015bc3",
+        "id": "b8ed3a08-71cb-471f-963d-04e3161fc259",
         "title": "CSP header not observed",
         "classification": "potential_vulnerability",
         "severity": "low",
         "evidence_ids": [
-          "52f01a13-9f66-4d87-897e-3cc536e56c66"
+          "e5a5a8c9-d2cf-4644-b2c9-c1eef9594c63"
         ],
         "rationale": "",
-        "hypothesis_id": "9f6db4b4-89b2-4e9e-bbe8-758aaefbcf32"
+        "hypothesis_id": "90a9ac75-e562-4f20-beb2-19c68b1eda46"
       }
     ],
     "informational_observation": [],

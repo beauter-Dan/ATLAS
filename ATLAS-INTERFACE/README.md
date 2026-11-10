@@ -1,49 +1,54 @@
 # ATLAS Interface
 
-Frontend for ATLAS (Automated Target Intelligence and Analysis System). Runs on its own, no backend needed.
+React + Vite web client for **ATLAS CORE** (v1.2.0 contract). Built pages: Sign-in, Dashboard, Targets (list, detail, register/edit) and **Assessments** (list, create, detail with status control,
+scope rules and members). The other sections in the navigation (Assets, Observations, Architecture, Hypotheses, Experiments, Findings,
+Reports, …) are **placeholders** — their backend endpoints exist, their screens have not been built.
 
-## Install and run
+## Run
 ```bash
 npm install
 cp .env.example .env.local
-npm run dev        # http://localhost:5173
-npm run build      # production build to dist/
+npm run dev            # http://localhost:5173
 ```
-Place this folder at `~/Documents/ATLAS/ATLAS-INTERFACE/`.
+* **Demo mode** (`VITE_USE_MOCK=true`, default): synthetic in-memory data, no sign-in. The demo data uses the *real backend response shapes*,
+  so the same mapping code runs in both modes.
+* **Live mode** (`VITE_USE_MOCK=false`): needs a running ATLAS CORE whose `ATLAS_CORS_ORIGINS` includes this app's origin
+  (default `http://localhost:5173`). You will see a sign-in screen; the header shows your name/role and a **Sign out** button.
+  With the backend's synthetic seed (`python -m scripts.seed_synthetic`): users `admin1`, `approver1`, `analyst1`, `viewer1`,
+  password `SyntheticPass123!` (demo only).
 
-## Configuration
-| Variable | Default | Purpose |
-|---|---|---|
-| `VITE_API_BASE_URL` | `http://localhost:8000/api/v1` | ATLAS CORE API |
-| `VITE_USE_MOCK` | `true` | `true` serves labelled synthetic demo data; `false` calls the API |
+## Behaviour worth knowing
+* **Assessments:** status buttons shown depend on the current status (mirroring the server's state machine). Activation is refused by the server
+  without a valid target authorization **and** at least one permitted rule — the UI explains which. Scope changes and status changes are
+  approver-only; members can be managed by the owner, an assessment approver or an admin (the server decides; the UI shows the server's reason).
+* **Tokens live in memory only** (never `localStorage`). A page reload signs you out — a deliberate security trade-off.
+* The API client refreshes an expired access token **once**, shares one refresh between concurrent requests (refresh tokens rotate), and
+  returns you to sign-in with an explanation if the session is over.
+* **Scope is per assessment** in the backend, so the target page shows permitted/excluded assets grouped by assessment. Authorization is
+  shown as Authorized / Pending / Expired, derived from the target's authorization record (the server remains the authority).
+* The UI hides actions your role cannot perform (e.g. *Register target* for viewers, authorization fields for non-approvers) — a convenience only;
+  **the server enforces every rule** (the end-to-end test proves it by sending forged requests).
+* A target you cannot access answers "not found or no access" — the backend deliberately does not reveal whether it exists.
 
-`VITE_*` values are bundled into the browser. Never put secrets in them.
+## Project layout
+`src/services/` — `contract.js` (endpoint map), `apiClient.js` (auth, refresh, error envelope), `mappers.js` (backend ↔ UI shapes),
+`*Service.js`, `mock/` · `src/auth/` — session state · `src/pages/`, `src/components/`, `src/layouts/`, `src/utils/`.
 
-## Structure
-- `src/config` env and navigation (drives sidebar and routes)
-- `src/layouts` app shell
-- `src/pages` one file per section (unbuilt sections use `PlaceholderPage`)
-- `src/components` Panel, StatCard, Badge, ScopeBadge, PageHeader, States (Loading / ErrorState / EmptyState)
-- `src/hooks/useApi.js` loading, error and reload handling
-- `src/services` `apiClient.js` (only place that calls `fetch`), `contract.js` (endpoint map), per-domain services, `mock/`
-- `src/types` model definitions, `src/utils`, `src/styles` (tokens, base, components)
+## Tests
+```bash
+npm test               # 116 tests: API client, mappers, services, validation, sign-in flow, role-gated pages and forms, whole app in demo mode
+npm run build          # production build
 
-## Contract status (important)
-`ATLAS-SHARED/contracts/*` was not available when this scaffold was written. `src/services/contract.js`,
-`src/types/models.js` and `src/services/mock/` are provisional. Replace them with the documented
-endpoints and models before turning mock mode off. Do not add endpoints that are not in `openapi.json`.
+# END-TO-END against a REAL backend (opt-in; never runs by default)
+#   1) backend:  python -m scripts.seed_synthetic --database-url <url> ; start uvicorn with that database (see ATLAS-CORE/README.md)
+#   2)           VITE_API_BASE_URL=http://127.0.0.1:8792/api/v1 npm run test:e2e
+```
+The end-to-end suite (17 tests) uses the real service layer — no mocks — to check sign-in errors, role enforcement, cross-user isolation,
+token refresh/rotation/revocation, the CORS preflight, and the full assessment lifecycle (create, scope rules, members, activation refusals,
+status transitions) across four different users. It does **not** run a browser (see limitations).
 
-## Built so far
-- Dashboard: stat cards link to their sections, refresh keeps current data on screen while reloading.
-- Targets: searchable and filterable list, registration and edit form, detail page with authorization, permitted and excluded assets, and assessment history.
-- Scope rules (`src/utils/scope.js`): a target shows as authorized only if the backend status is `authorized` and today is inside the validity window; excluded assets always win over permitted ones; a form cannot be saved with an asset in both lists; authorization status is never set from the UI.
-- Mock mode keeps targets in memory, so created and edited targets reset on reload.
-
-## Adding a section
-1. Add the model to `src/types`, the endpoint to `contract.js`, and a mock to `services/mock`.
-2. Add a service function, then a page that uses `useApi`.
-3. Swap its `PlaceholderPage` route in `App.jsx`.
-
-## Testing
-No test runner is set up yet (milestone 17). For now: `npm run build` must pass, and in the browser check each nav link,
-the mobile menu below 900px, and the loading, error (set `VITE_USE_MOCK=false` with no backend) and populated states.
+## Limitations
+* Never run in a real browser in this verification (no browser was available). CORS is verified at the HTTP level (preflight response), not by a browser.
+* No accessibility audit beyond semantic markup and labelled controls; no visual regression tests.
+* Authorization shown for a target has no "revoked" state because the backend has none.
+* `updated at` is not shown: the backend does not store it.

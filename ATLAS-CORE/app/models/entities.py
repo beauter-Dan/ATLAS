@@ -57,6 +57,7 @@ class Target(Base):
     id: Mapped[str] = _id()
     name: Mapped[str] = mapped_column(String(200), unique=True)
     base_domain: Mapped[str] = mapped_column(String(255))
+    organization: Mapped[Optional[str]] = mapped_column(String(200), nullable=True)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     authorization_reference: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     authorized_by: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)

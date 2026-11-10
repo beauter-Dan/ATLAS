@@ -19,7 +19,7 @@ def create_app() -> FastAPI:
     s = get_settings()
     s.validate_for_runtime()
     install_log_redaction()
-    app = FastAPI(title="ATLAS CORE API", version="1.1.0", debug=s.debug, lifespan=lifespan,
+    app = FastAPI(title="ATLAS CORE API", version="1.2.1", debug=s.debug, lifespan=lifespan,
                   description="Automated Target Intelligence and Analysis System - Core Engine. "
                               "Evidence-driven analysis for AUTHORIZED assessments only. Success: {data}; error: {error:{code,message,details}}.")
     # order matters: last added = outermost. CORS must answer preflights before rate limiting/auth.

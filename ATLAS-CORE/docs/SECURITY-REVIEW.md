@@ -28,7 +28,7 @@ in this phase. "Inspection" = found by reading code; the fix is guarded by a new
 ## Residual risks (open — please read)
 1. **DNS rebinding / TOCTOU** *(Medium)*: the address guard resolves a name, the HTTP client resolves again to connect. Mitigate with an egress firewall on API/worker hosts; connection-time IP pinning is not implemented.
 2. **Scope is host-based** *(Low)*: `ATLAS_ALLOWED_PORTS` is global, rules cannot differ per port.
-3. **Role-level 403s are not audited** *(Low)*: only assessment-level denials, scope decisions and authentication events are. A user probing endpoints above their global role leaves no audit row (the rate limiter still applies).
+3. ~~Role-level 403s were not audited~~ — **closed in v1.2.0**: refusals by global role are now audited as `role_denied` (actor, needed role, method, path; never the query string) — `test_role_denials_are_audited`.
 4. **Audit trigger is not tamper-proof against a DB superuser** *(Low)*; no external log shipping provided.
 5. **MFA** *(Low)*: no recovery codes; not enforced for privileged roles; TOTP secret shown once at enrollment.
 6. **Password-reset delivery** *(Info)*: interface only; the default drops tokens. Self-service reset is therefore inert until a delivery backend is plugged in.

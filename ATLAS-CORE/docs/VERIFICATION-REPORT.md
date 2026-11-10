@@ -93,3 +93,38 @@ reproduced on the old code, guarded by new tests): the F-01…F-09 class listed 
 * DNS-rebinding between the address guard and the connection (documented residual risk).
 * The AI providers (`anthropic`, `openai_compatible`) were not called; only the offline provider and a fake were used.
 * The web interface (`ATLAS-INTERFACE`) was not run or modified; see `INTERFACE-GAP-ANALYSIS.md`.
+
+---
+## 6. Addendum — v1.2.0 (interface integration), verified after Phase 13
+Changes: `GET /dashboard/summary`; `organization` on targets (migration `0003`); `role_denied` audit events; the **interface was wired to the real contract**
+(sign-in, token refresh, error envelope, mappers, Targets pages) and given a test suite.
+
+| Run (all executed) | Result |
+|---|---|
+| Backend on **PostgreSQL 16.15 + Redis 7.0.15** | **163 passed**, 0 failed, 0 skipped (was 157; +6 `test_dashboard`, role-denial, organization) |
+| Backend on SQLite + Redis | **144 passed**, 0 failed, 19 skipped (PostgreSQL-only tests) |
+| `alembic upgrade head` / `check` on PostgreSQL | `0003 (head)`; "No new upgrade operations detected" |
+| Interface unit + component tests (vitest + jsdom) | **69 passed** (API client incl. refresh single-flight and rotation, mappers, services, validation, sign-in/MFA/lockout/session-loss flow, role-gated forms, list/detail pages, whole app in demo mode) |
+| Interface **end-to-end** against a live backend on PostgreSQL (real services, no mocks) | **9 passed**: wrong-credential error codes; analyst list/detail/per-assessment scope/dashboard; create/edit with server-side refusal of a *forged* authorization edit and of duplicates; viewer read-only; second user sees nothing and gets 404; transparent refresh with rotation + replay detection; server-side revocation signs the client out; logout revokes; CORS preflight |
+| Interface production build | succeeds |
+
+Defects found by these tests (all fixed): an unused/incorrect `distinct()` usage raising a SQLAlchemy warning in the new dashboard query (caught by the warning
+check, fixed with `select(col).distinct()`). Test-harness bugs fixed along the way (e.g. a `beforeEach` that returned a mock, which vitest then invoked as a cleanup hook) were not application defects.
+
+**Still not verified:** the interface in a real browser (including real CORS enforcement); the other eight screens (not built); load behaviour; everything
+listed in §5 above.
+
+---
+## 7. Addendum — v1.2.1 (Assessments screen)
+Built the interface's **Assessments** section (list, create, detail with status transitions, scope rules, members) against the real contract.
+Verified (all executed): backend **PostgreSQL 164 passed**, SQLite 145 passed + 19 skipped; interface **116 unit/component tests passed**, production build OK;
+interface **end-to-end 17 passed** against a live backend on PostgreSQL (the 8 new tests cover assessment lifecycle across analyst / approver-non-member /
+admin / approver-member: 403 for an analyst changing scope or status, 404 for a non-member, owner immutability, `scope_required` before activation, activation after a
+permitted rule exists, `invalid_transition`, duplicate-rule `conflict`, invalid-rule `invalid_scope_rule`, rule/member removal, dashboard reflecting the new assessment).
+
+**Defect found by wiring the screen to the live backend (fixed, regression-tested):** `GET /assessments/{id}/members` omitted the **owner**, because ownership is
+stored on the assessment rather than as a membership row. `test_member_list_includes_the_owner_once_and_first` guards it (including no duplicate when a legacy
+membership row also exists). The interface's own mock backend had hidden this: it listed the owner, the real server did not — a reminder that the E2E suite, not the mock, is the proof.
+
+**Still not verified:** a real browser; the remaining interface screens (Assets, Observations, Architecture, Hypotheses, Experiments, Findings, Reports) are not built;
+no UI yet to trigger collection/experiments/AI/reports; load; everything in §5.
